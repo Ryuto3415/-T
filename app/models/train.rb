@@ -5,13 +5,13 @@ class Train < ApplicationRecord
   # 画像の登録
   has_one_attached :image
   # バリデーション
-  validates :title,prensence: true
-  validates :body,prensence: true
-  
+  validates :title,presence: true
+  validates :body,presence: true
+
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
-  
+
   def self.search_for(content, method)
     if method == 'perfect'
       Train.where(title: content)
@@ -23,5 +23,5 @@ class Train < ApplicationRecord
       Train.where('title LIKE ?', '%'+content+'%')
     end
   end
-  
+
 end

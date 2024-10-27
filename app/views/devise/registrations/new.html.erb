@@ -9,7 +9,7 @@
       </div>
 
       <div class="row pb-2">
-        <div class="col-1 offset-1"><%= f.label :"名前" %></div>
+        <div class="col-1 offset-3"><%= f.label :"名前" %></div>
         <div class="col-2"><%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder:"登録する会員名"  %></div>
       </div>
 
@@ -41,7 +41,7 @@
 
       <div class="row mt-4">
         <div class="col-5 ml-3">
-          <%= render "public/shared/links" %>からログインしてください。
+          <%= render "devise/shared/links" %>からログインしてください。
         </div>
 
       </div>

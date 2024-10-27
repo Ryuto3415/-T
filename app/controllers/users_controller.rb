@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
-  
+
   def index
     @train = Train.all
   end
@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
   end
-  
+
   # ユーザ情報の更新機能
   def update
     @user = User.find(params[:id])
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
       render :edit
     end
   end
-  
+
   def destroy
     @user = User.find(params[:id])
     if @user == current_user
@@ -34,14 +34,14 @@ class UsersController < ApplicationController
       redirect_to root_path, alert: "他のユーザーのアカウントは削除できません。"
     end
   end
-  
+
   # ストロングパラメータ
   private
-  
+
   def user_params
     params.require(:user).permit(:name, :profile_image, :introduction)
   end
-  
+
   def is_matching_login_user
     user = User.find(params[:id])
     unless user.id == current_user.id
@@ -49,5 +49,5 @@ class UsersController < ApplicationController
       redirect_to user_path(current_user.id)
     end
   end
-  
+
 end

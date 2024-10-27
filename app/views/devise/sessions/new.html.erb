@@ -13,6 +13,10 @@
             <%= f.text_field :name, autofocus: true, class: "name" %>
           </div>
           <div class="login-form__field">
+            <%= f.label :メールアドレス %><br />
+            <%= f.email_field :email, autofocus: true, class: "email" %>
+          </div>
+          <div class="login-form__field">
             <%= f.label :パスワード %><br />
             <%= f.password_field :password, autocomplete: "current-password" %>
           </div>
@@ -33,6 +37,7 @@
           ユーザ登録がまだの方は<strong><%= link_to "こちら", new_user_registration_path %></strong>で登録、<br>
           もしくは、下記でログインお願いします。<br>
           ユーザ名：hide<br>
+          メールアドレス : email@email<br>
           パスワード：password
         </div>
       </section>
