@@ -3,7 +3,7 @@ class TrainsController < ApplicationController
   def new
     @train = Train.new
   end
-  
+
   # 新期投稿機能
   def create
     @train = Train.new(train_params)
@@ -26,14 +26,14 @@ class TrainsController < ApplicationController
   end
   # 編集画面
   def edit
-    @train = train.find(params[:id])
+    @train = Train.find(params[:id])
     unless @train.user == current_user
       redirect_to trains_path
     end
   end
   # 更新機能
   def update
-    @train = train.find(params[:id])
+    @train = Train.find(params[:id])
    if @train.update(train_params)
      flash[:notice] = "更新しました"
     redirect_to train_path(@train.id)
@@ -41,19 +41,19 @@ class TrainsController < ApplicationController
     render :edit
    end
   end
-  
+
   # 削除機能
   def destroy
     train = Train.find(params[:id])
     train.destroy
     redirect_to "/trains"
   end
-  
+
   # ストロングパラメーター
   private
 
   def train_params
-    params.require(:train).permit(:train_image, :title, :body)
+    params.require(:train).permit(:title, :image, :body)
   end
-  
+
 end

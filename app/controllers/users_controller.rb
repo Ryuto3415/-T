@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @train = Train.all
+    @users = User.all
   end
 
   def show

@@ -7,6 +7,17 @@ class Train < ApplicationRecord
   # バリデーション
   validates :title,presence: true
   validates :body,presence: true
+  def get_image
+    (image.attached?) ? image : 'default-image.jpg'
+  end
+  
+  def image_url
+    if image.attached?
+      Rails.application.routes.url_helpers.rails_blob_path(image, only_path: true)
+    else
+      'default-image.jpg'
+    end
+  end
 
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)

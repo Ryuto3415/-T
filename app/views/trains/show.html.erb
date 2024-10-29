@@ -1,2 +1,39 @@
-<h1>Trains#show</h1>
-<p>Find me in app/views/trains/show.html.erb</p>
+<div class='container'>
+  <div class='row'>
+
+    <div class='col-md-12 offset-md-1'>
+  		<h2>投稿詳細</h2>
+  		<table class='table'>
+  		  <tbody>
+  		  <tr>
+          <td>
+            <%= image_tag @train.image_url, size: '200x150' %>
+          </td>
+          <td>
+            <%= link_to @train.user.name, user_path(@train.user) %>
+          </td>
+          <td><%= link_to @train.title, @train %></td>
+          <td><%= @train.body %></td>
+          <td id="favorite_btn_<%= @train.id %>">
+             <!-- render "favorites/btn", train: @train -->
+          </td>
+            <td id="comment_counter">
+             <!-- render "train_comments/counter", train: @train -->
+            </td>
+            <!--<td>閲覧数:  @train.view_count </td>-->
+            <% if @train.user == current_user %>
+            <td><%= link_to '編集', edit_train_path(@train), class: "btn btn-sm btn-success" %></td>
+            <td><%= link_to '削除', @train, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
+            <% end %>
+        </tr>
+        </tbody>
+      </table>
+
+      <div id="comment_index">
+        <!-- render "train_comments/index", train: @train -->
+      </div>
+      <!-- render "train_comments/form", train: @train, train_comment: @train_comment -->
+
+    </div>
+  </div>
+</div>
