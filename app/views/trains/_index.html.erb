@@ -16,7 +16,7 @@
         <td><%= link_to train.title,train %></td>
         <td><%= train.body %></td>
         <td id="favorite_btn_<%= train.id %>">
-           <!-- render "favorites/btn", train: train -->
+           <%= render "favorites/btn", train: train %>
         </td>
         <td>コメント数： <%= train.train_comments.count %></td>
         <!--<td>閲覧数:  @train.view_count </td>-->

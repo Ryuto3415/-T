@@ -1,0 +1,11 @@
+<% if train.favorited_by?(current_user) %>
+  <%= link_to train_favorite_path(train), method: :delete do %>
+    <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
+    <%= train.favorites.count %> いいね
+  <% end %>
+<% else %>
+  <%= link_to train_favorite_path(train), method: :post do %>
+    <i class="fas fa-heart" aria-hidden="true"></i>
+    <%= train.favorites.count %> いいね
+  <% end %>
+<% end %>

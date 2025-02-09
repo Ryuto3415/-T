@@ -15,7 +15,7 @@
           <td><%= link_to @train.title, @train %></td>
           <td><%= @train.body %></td>
           <td id="favorite_btn_<%= @train.id %>">
-             <!-- render "favorites/btn", train: @train -->
+             <%= render "favorites/btn", train: @train %>
           </td>
             <td id="comment_counter">
              <!-- render "train_comments/counter", train: @train -->
