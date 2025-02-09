@@ -18,7 +18,7 @@
              <%= render "favorites/btn", train: @train %>
           </td>
             <td id="comment_counter">
-             <!-- render "train_comments/counter", train: @train -->
+             <%= render "train_comments/counter", train: @train %>
             </td>
             <!--<td>閲覧数:  @train.view_count </td>-->
             <% if @train.user == current_user %>
@@ -30,9 +30,9 @@
       </table>
 
       <div id="comment_index">
-        <!-- render "train_comments/index", train: @train -->
+        <%= render "train_comments/index", train: @train %>
       </div>
-      <!-- render "train_comments/form", train: @train, train_comment: @train_comment -->
+      <%= render "train_comments/form", train: @train, train_comment: @train_comment %>
 
     </div>
   </div>

@@ -21,7 +21,7 @@ class TrainsController < ApplicationController
   # 詳細画面
   def show
     @train = Train.find(params[:id])
-    @train_commemt = TrainComment.new
+    @train_comment = TrainComment.new
     @train.increment!(:view_count)
   end
   # 編集画面
