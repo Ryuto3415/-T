@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @trains = @user.trains
+    @trains = @user.trains.order(created_at: :desc)
   end
 
   def edit
