@@ -4,7 +4,7 @@
     <div class="col-4 pb-0 mb-0 d-flex justify-content-center">
       <% if flash[:notice].present? %>
         <div class="alert alert-success" style="border-radius: 10px;">
-          <%= flash[:notice] %>
+          <% flash[:notice] %>
         </div>
       <% end %>
     </div>

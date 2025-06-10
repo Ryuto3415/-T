@@ -21,7 +21,9 @@
            <%= render "favorites/btn", train: train %>
         </td>
         <td>コメント数： <%= train.train_comments.count %></td>
-        <!--<td>閲覧数:  @train.view_count </td>-->
+        <td>閲覧数:  <br/>
+         <i class="fas fa-eye"></i>
+             <%= train.impressionist_count %> </td>
       </tr>
     <% end %>
   </tbody>

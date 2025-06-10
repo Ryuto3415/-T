@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @trains = @user.trains.order(created_at: :desc)
+    @total_views = @user.trains.sum(&:impressionist_count)
   end
 
   def edit
