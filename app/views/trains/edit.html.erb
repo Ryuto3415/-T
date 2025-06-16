@@ -28,11 +28,13 @@
 
             <div class="mb-3">
               <%= f.label :profile_image, "画像を変更する", class: "form-label fw-bold" %><br>
+
               <% if @train.image_url.present? %>
                 <%= image_tag @train.image_url, id: "preview", class: "img-thumbnail mb-2", style: "max-width: 100%; height: auto;" %>
               <% else %>
-                <%= image_tag 'no_image.jpg', id: "preview", class: "img-thumbnail mb-2", style: "max-width: 100%; height: auto;" %>
+                <%= image_tag 'default-image.jpg', id: "preview", class: "img-thumbnail mb-2", style: "max-width: 100%; height: auto;" %>
               <% end %><br>
+
               <%= f.file_field :profile_image, class: "form-control-file", accept: "image/*", onchange: "previewImage(event)" %>
             </div>
 
@@ -56,3 +58,22 @@
     </div>
   </div>
 </div>
+
+<!-- JS: 画像プレビュー機能 -->
+<script>
+function previewImage(event) {
+  const input = event.target;
+  const preview = document.getElementById('preview');
+  const file = input.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      preview.src = e.target.result;
+    }
+
+    reader.readAsDataURL(file);
+  }
+}
+</script>
