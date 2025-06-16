@@ -1,33 +1,58 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
-      <h1>投稿編集ページ</h1>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
 
-      <% if @train.errors.any? %>
-      <h3> <%= @train.errors.count %>errors prohibited this obj from being saved:</h3>
-      <ul>
-      <% @train.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-      <% end %>
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">✏️ 投稿を編集する</h4>
+        </div>
 
-      <%= form_with model: @train, url: train_path(@train.id), method: :patch do |f| %>
-      <div class="form-group">
-        <label>タイトル</label>
-        <%= f.text_field :title, class:"form-control" %>
+        <div class="card-body">
+          <%= form_with model: @train, local: true, html: { multipart: true } do |f| %>
+
+            <% if @train.errors.any? %>
+              <div class="alert alert-danger">
+                <h5>入力内容に問題があります：</h5>
+                <ul>
+                  <% @train.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="mb-3">
+              <%= f.label :title, "タイトル", class: "form-label fw-bold" %>
+              <%= f.text_field :title, class: "form-control", placeholder: "タイトルを入力してください" %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :profile_image, "画像を変更する", class: "form-label fw-bold" %><br>
+              <% if @train.image_url.present? %>
+                <%= image_tag @train.image_url, id: "preview", class: "img-thumbnail mb-2", style: "max-width: 100%; height: auto;" %>
+              <% else %>
+                <%= image_tag 'no_image.jpg', id: "preview", class: "img-thumbnail mb-2", style: "max-width: 100%; height: auto;" %>
+              <% end %><br>
+              <%= f.file_field :profile_image, class: "form-control-file", accept: "image/*", onchange: "previewImage(event)" %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :body, "本文", class: "form-label fw-bold" %>
+              <%= f.text_area :body, rows: 5, class: "form-control", placeholder: "本文を入力してください" %>
+            </div>
+
+            <div class="text-end">
+              <%= f.submit "更新する", class: "btn btn-primary px-4" %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="card-footer text-center">
+          <%= link_to "⬅ 戻る", train_path(@train), class: "btn btn-outline-secondary me-2" %>
+          <%= link_to "📋 投稿一覧へ", trains_path, class: "btn btn-outline-secondary" %>
+        </div>
       </div>
-      <div class="form-group">
-        <label>本文</label>
-        <%= f.text_field :body, class:"form-control" %>
-      </div>
-      <div class="form-group">
-        <%= f.submit "更新する", class:"btn btn-success" %>
-      </div>
-        <% end %>
-        <%= link_to "戻る", train_path(@train.id) %>
-        |
-        <%= link_to "投稿一覧へ", trains_path %>
+
     </div>
   </div>
 </div>
