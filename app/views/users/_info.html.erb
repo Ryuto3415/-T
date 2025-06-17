@@ -1,38 +1,42 @@
-<table class="table">
-  <tr>
-    <%= image_tag user.get_profile_image, size:"100x100" %>
-  </tr>
-  <tr>
-    <th>名前</th>
-    <th><%= user.name %></th>
-  </tr>
-  <tr>
-    <th>自己紹介</th>
-    <th><%= user.introduction %></th>
-  </tr>
+<!--_info.html.erb-->
+<div class="card shadow-sm text-center">
+  <div class="card-body">
+    <!-- プロフィール画像 -->
+    <%= image_tag user.get_profile_image, size: "100x100", class: "rounded-circle mb-3" %>
+    <!-- 名前 -->
+    <h5><%= user.name %></h5>
+    <!-- 自己紹介 -->
+    <p class="text-muted">
+      <%= user.introduction.presence || "自己紹介はまだありません。" %>
+    </p>
 
-  <tr>
-    <th>フォロー</th>
-    <th><%= link_to user.followings.count, user_followings_path(user) %></th>
-  </tr>
+    <!-- フォロー/フォロワー -->
+    <div class="d-flex justify-content-center mb-3">
+      <div class="me-3">
+        <strong><%= link_to user.followings.count, user_followings_path(user), class: "text-decoration-none" %></strong><br>
+        <small>フォロー</small>
+      </div>
+      <div>
+        <strong><%= link_to user.followers.count, user_followers_path(user), class: "text-decoration-none" %></strong><br>
+        <small>フォロワー</small>
+      </div>
+    </div>
 
-  <tr>
-    <th>フォロワー</th>
-    <th><%= link_to user.followers.count, user_followers_path(user) %></th>
-  </tr>
-</table>
-
-
-
-<div class='row'>
-  <% if current_user != user %>
-  <td><%= render "relationships/btn", user: user, options: { class: ""} %></td>
-  <% else %>
-  <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
-    <i class="fas fa-user-cog"></i>
+    <!-- ボタン：自分 or 他人 -->
+    <% if current_user == user %>
+      <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-sm" do %>
+        <i class="fas fa-user-cog"></i> プロフィールを編集
+      <% end %>
+    <% else %>
+      <%= render "relationships/btn", user: user, options: { class: "btn btn-outline-primary btn-sm" } %>
     <% end %>
-  <% end %>
-  <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>
-    <%= link_to 'chatを始める', chat_path(user.id), class: "ml-3" %>
-  <% end %>
+
+    <!-- 相互フォローでチャットリンク -->
+    <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>
+      <div class="mt-2">
+        <%= link_to '💬 チャットを始める', chat_path(user.id), class: "btn btn-sm btn-outline-success" %>
+      </div>
+    <% end %>
+
+  </div>
 </div>
