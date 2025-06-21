@@ -1,23 +1,41 @@
 <!--users/_index.html.erb-->
-<table class='table'>
-  <thead>
-    <tr>
-      <th>image</th>
-      <th>name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% users.each do |user| %>
-      <tr>
-        <td><%= image_tag user.get_profile_image, size: '50x50' %></td>
-        <td><%= user.name %></td>
-        <td>フォロー数: <%= user.followings.count %></td>
-        <td>フォロワー数: <%= user.followers.count %></td>
-        <td><%= render "relationships/btn", user: user, options: { class: "follow-link" } %></td>
-        <td><%= link_to 'Show', user %></td>
-        <!--<td>コメント数<td>-->
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% users.each do |user| %>
+  <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+    <div class="card shadow-sm h-100 text-center">
+
+      <div class="card-body">
+        <!-- プロフィール画像 -->
+        <%= image_tag user.get_profile_image, size: '80x80', class: "rounded-circle mb-2" %>
+
+        <!-- 名前 -->
+        <h5 class="mb-1"><%= user.name %></h5>
+
+        <!-- 自己紹介 -->
+        <p class="text-muted small">
+          <%= truncate(user.introduction.presence || "自己紹介はまだありません。", length: 40) %>
+        </p>
+
+        <!-- フォロー / フォロワー -->
+        <div class="d-flex justify-content-center mb-2">
+          <div class="me-3">
+            <strong><%= user.followings.count %></strong><br>
+            <small>フォロー</small>
+          </div>
+          <div>
+            <strong><%= user.followers.count %></strong><br>
+            <small>フォロワー</small>
+          </div>
+        </div>
+
+        <!-- フォロー＆プロフィールボタン（自分以外のみ） -->
+        <% if current_user != user %>
+          <div class="d-grid gap-3 mt-3">
+            <%= render "relationships/btn", user: user, options: { class: "btn btn-sm btn-outline-primary " } %>
+            <%= link_to "プロフィールを見る", user_path(user), class: "btn btn-sm btn-outline-secondary " %>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+<% end %>
